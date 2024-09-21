@@ -44,4 +44,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-#coba 
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

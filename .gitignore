@@ -45,3 +45,7 @@ Homestead.json
 .phpunit.result.cache
 
 #coba 
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

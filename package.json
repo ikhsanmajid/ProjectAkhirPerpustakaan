@@ -9,5 +9,9 @@
         "axios": "1.7.4",
         "laravel-vite-plugin": "1.0",
         "vite": "5.0"
+    },
+    "dependencies": {
+        "dotenv-vault": "^1.26.2",
+        "package.json": "^2.0.1"
     }
 }

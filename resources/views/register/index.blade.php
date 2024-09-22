@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="vh-100 vw-100"
-        style="background-image: url({{ asset('storage/images/background.png') }}); background-repeat: no-repeat; background-size: cover;">
+    <div class="h-100 w-100">
         <div class="d-flex h-100 w-100 justify-content-center align-items-center">
             <div class="card w-25">
                 <div class="card-header text-center fw-bolder">
@@ -68,7 +67,7 @@
                 }
 
                 if (errors.length > 0) {
-                    message.html(`
+                    return message.html(`
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 Kesalahan:

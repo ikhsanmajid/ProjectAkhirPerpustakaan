@@ -8,26 +8,42 @@
     <title>Perpustakaan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 72px;
+            background-image: url('{{ asset('storage/images/background.png') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        .backdrop-bg {
+            height: inherit;
+            background-color: rgba(255, 255, 255, 0.4);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+        }
+    </style>
 </head>
 
-<body>
-    <nav class="navbar fixed-top bg-primary">
-        <div class="container-fluid px-3 py-1 d-flex justify-content-between">
-            <div class="navbar-brand mb-0 h1 text-white">Navbar</div>
-            <div>
-                @if (session()->has('nama'))
-                    <a href="/logout" class="text-white text-decoration-none">
-                        Logout
-                    </a>
-                @else
-                    <a href="/login" class="text-white text-decoration-none">
-                        Login
-                    </a>
-                @endif
+<body class="vh-100 backdrop-bg">
+        <nav class="navbar fixed-top bg-primary">
+            <div class="container-fluid px-3 py-1 d-flex justify-content-between">
+                <div class="navbar-brand mb-0 h1 text-white">Navbar</div>
+                <div>
+                    @if (Auth::check())
+                        <a href="/logout" class="text-white text-decoration-none">
+                            Logout
+                        </a>
+                    @else
+                        <a href="/login" class="text-white text-decoration-none">
+                            Login
+                        </a>
+                    @endif
+                </div>
             </div>
-        </div>
-    </nav>
-    @yield('content')
+        </nav>
+        @yield('content')
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>

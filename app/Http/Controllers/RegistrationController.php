@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
@@ -19,15 +20,18 @@ class RegistrationController extends Controller
         $password = $request->input('password');
         $fullName = $request->input('name');
 
+        $error = "";
+
         try {
             $insertUser = new User;
 
             $insertUser->email = $email;
-            $insertUser->password = $password;
+            $insertUser->password = Hash::make($password);
             $insertUser->nama = $fullName;
             $insertUser->is_active = true;
 
-            $result = $insertUser->save();
+            $insertUser->save();
+            
         } catch (\Exception $e) {
             switch ($e->errorInfo[1]) {
                 case 1062:
@@ -35,7 +39,7 @@ class RegistrationController extends Controller
                     break;
 
                 default:
-                    $error = "backend error";
+                    $error = "backend error ".$e->errorInfo[1];
                     break;
             }
         }

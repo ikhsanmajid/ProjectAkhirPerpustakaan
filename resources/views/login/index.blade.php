@@ -1,22 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="vh-100 vw-100" style="background-image: url({{asset('storage/images/background.png')}}); background-repeat: no-repeat; background-size: cover;">
+    <div class="h-100 w-100">
         <div class="d-flex h-100 w-100 justify-content-center align-items-center">
             <div class="card w-25">
                 <div class="card-header text-center fw-bolder">
                     Login
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="password">
                         </div>
+                        @if (Session::has('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ Session::get('error') }}
+                            </div>
+                        @endif
                         <div class="mb-3">
                             Tidak punya akun? <a href="/register">Register</a>
                         </div>

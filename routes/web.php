@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        // If user is authenticated, redirect to /home
+        return redirect()->route('home');
+    }
+    // If not authenticated, redirect to login
+    return redirect()->route('login');
 });
 
 

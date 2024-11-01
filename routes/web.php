@@ -13,7 +13,7 @@ Route::get('/', function () {
         return redirect()->route('home');
     }
     // If not authenticated, redirect to login
-    return redirect()->route('login');
+    return redirect()->route('landing');
 });
 
 
@@ -28,6 +28,10 @@ Route::group(['middleware' => 'guest'], function () {
     Route::controller(RegistrationController::class)->group(function () {
         Route::get('/register', 'index');
         Route::post('/register', 'register');
+    });
+
+    Route::controller(HomeController::class)->group(function() {
+        Route::get('/landing', 'landing')->name('landing');
     });
 });
 

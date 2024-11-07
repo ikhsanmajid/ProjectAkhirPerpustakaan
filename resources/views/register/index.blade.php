@@ -1,41 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="h-100 w-100">
-        <div class="d-flex h-100 w-100 justify-content-center align-items-center">
-            <div class="card w-25">
-                <div class="card-header text-center fw-bolder">
-                    Register
+    <div class="col-12 mt-5">
+        <div class="row h-100">
+            <div class="d-flex w-100 justify-content-center">
+                <div class="card w-25">
+                    <div class="card-header text-center fw-bolder">
+                        Register
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+
+                            <div class="mb-3" id="message">
+                            </div>
+
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="submit" id="submit" class="btn btn-primary">Register</button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name">
-                        </div>
-
-                        <div class="mb-3" id="message">
-                        </div>
-
-                        <div class="mb-3 d-flex justify-content-end">
-                            <button type="submit" id="submit" class="btn btn-primary">Register</button>
-                        </div>
-
-                    </form>
-                </div>
             </div>
-
         </div>
     </div>
 @endsection

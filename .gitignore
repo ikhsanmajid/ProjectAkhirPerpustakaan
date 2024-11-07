@@ -2,7 +2,6 @@
 /node_modules
 /public/build
 /public/hot
-/public/storage
 /storage/*.key
 /vendor
 .phpactor.json
@@ -24,14 +23,13 @@ yarn-error.log
 
 # Laravel 4 specific
 bootstrap/compiled.php
-app/storage/
+
 
 # Laravel 5 & Lumen specific
-public/storage
-public/hot
+
 
 # Laravel 5 & Lumen specific with changed public path
-public_html/storage
+
 public_html/hot
 
 storage/*.key
@@ -39,6 +37,8 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+.env*
 
 
 .flaskenv*

@@ -10,40 +10,51 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
-            padding-top: 72px;
             background-image: url('{{ asset('storage/images/background.png') }}');
             background-repeat: no-repeat;
             background-size: cover;
-
-        }
-
-        .backdrop-bg {
-            height: inherit;
-            background-color: rgba(255, 255, 255, 0.4);
-            -webkit-backdrop-filter: blur(3px);
-            backdrop-filter: blur(3px);
         }
     </style>
 </head>
 
-<body class="vh-100 backdrop-bg">
-        <nav class="navbar fixed-top bg-primary">
-            <div class="container-fluid px-3 py-1 d-flex justify-content-between">
-                <div class="navbar-brand mb-0 h1 text-white">Navbar</div>
-                <div>
-                    @if (Auth::check())
-                        <a href="/logout" class="text-white text-decoration-none">
-                            Logout
-                        </a>
-                    @else
-                        <a href="/login" class="text-white text-decoration-none">
-                            Login
-                        </a>
-                    @endif
-                </div>
+<body>
+
+    <nav class="navbar bg-primary sticky-top" data-bs-theme="dark">
+        <div class="container-fluid px-3 py-1 d-flex justify-content-between">
+
+            @if (Auth::check())
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon "></span>
+                </button>
+            @endif
+
+            <div class="navbar-brand mb-0 h1 text-white">Perpustakaan</div>
+            <div>
+                @if (Auth::check())
+                    <a href="/logout" class="text-white text-decoration-none">
+                        Logout
+                    </a>
+                @else
+                    <a href="/login" class="text-white text-decoration-none">
+                        Login
+                    </a>
+                @endif
             </div>
-        </nav>
-        @yield('content')
+        </div>
+        @if (Auth::check())
+            @include('components.sidebar')
+        @endif
+    </nav>
+
+
+
+    <div class="container-fluid">
+        <div class="row w-100 h-100 my-3 mx-2 pe-3">
+            @yield('content')
+        </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>

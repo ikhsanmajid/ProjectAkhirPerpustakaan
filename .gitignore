@@ -38,7 +38,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-.env
+.env*
 
 
 .flaskenv*

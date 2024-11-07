@@ -33,13 +33,13 @@ class RegistrationController extends Controller
             $insertUser->save();
             
         } catch (\Exception $e) {
-            switch ($e->errorInfo[1]) {
-                case 1062:
+            switch ($e->getCode()) {
+                case 23000:
                     $error = "Registrasi Gagal! User sudah terdaftar";
                     break;
 
                 default:
-                    $error = "backend error ".$e->errorInfo[1];
+                    $error = "backend error ".$e->getCode();
                     break;
             }
         }

@@ -29,6 +29,7 @@ class RegistrationController extends Controller
             $insertUser->password = Hash::make($password);
             $insertUser->nama = $fullName;
             $insertUser->is_active = true;
+            $insertUser->role = 'user';
 
             $insertUser->save();
             
@@ -39,7 +40,7 @@ class RegistrationController extends Controller
                     break;
 
                 default:
-                    $error = "backend error ".$e->getCode();
+                    $error = "backend error ".$e->getCode()." ".$e->getMessage();
                     break;
             }
         }

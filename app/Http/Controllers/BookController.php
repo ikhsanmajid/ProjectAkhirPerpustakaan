@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 
@@ -13,7 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view("admin.management.books.index");
+        $books = Book::with('category')->get();
+        return view('admin.management.books.index', compact('books'));
     }
 
     /**
@@ -21,7 +23,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view("admin.management.books.create", compact("categories"));
     }
 
     /**
@@ -29,7 +32,17 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('books', 'public');
+            $validated['image'] = $imagePath;
+        }
+
+        // Menyimpan buku ke database
+        Book::create($validated);
+
+        return redirect()->route('admin.books.index')->with('success', 'Book added successfully!');
     }
 
     /**

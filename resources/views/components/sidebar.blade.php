@@ -22,7 +22,8 @@
                 <div class="collapse multi-collapse list-group-flush show"
                     id="menuAdmin">
                     <a href="/admin/users" class="text-decoration-none list-group-item {{ Route::is('admin.users.list') ? 'active' : '' }}" role="button">Manajemen User</a>
-                    <li class="list-group-item {{ Route::is('') ? 'active' : '' }}" role="button">Manajeman Buku</li>
+                    <a href="/admin/books" class="text-decoration-none list-group-item {{ Route::is('admin.books.index') ? 'active' : '' }}" role="button">Manajemen Buku</a>
+                    <a href="/admin/categories" class="text-decoration-none list-group-item {{ Route::is('admin.categories.index') ? 'active' : '' }}" role="button">Manajemen Kategori</a>
                     <li class="list-group-item {{ Route::is('') ? 'active' : '' }} border-bottom" role="button">Manajeman Peminjaman</li>
                 </div>
             </div>

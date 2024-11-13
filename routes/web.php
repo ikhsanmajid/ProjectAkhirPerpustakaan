@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -49,10 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
             Route::put('/admin/users/{id}', 'updateUser')->name('admin.users.update');
             Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.users.delete');
-
-            // Book Management
-
         })->name('admin.');
+        // Route resource untuk manajemen buku
+        Route::resource('admin/books', BookController::class)->names('admin.books');
+        Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
     });
 
     // Logout

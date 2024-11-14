@@ -15,10 +15,38 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::with('category')->get();
-        return view('admin.management.books.index', compact('books'));
+        $categories = Category::all();
+        $query = Book::query();
+
+        //Search
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('author', 'like', '%' . $request->search . '%')
+                    ->orWhere('isbn', 'like', '%' . $request->search . '%')
+                    ->orWhere('publisher', 'like', '%' . $request->search . '%')
+                    ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter by category
+        if ($request->filled('category')) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('name', $request->category);
+            });
+        }
+
+        // Filter by year
+        if ($request->filled('year')) {
+            $query->where('publication_year', $request->year);
+        }
+
+        // Paginate results and keep filters in the query string
+        $books = $query->paginate(10)->appends($request->query());
+
+        return view('admin.management.books.index', ['books' => $books, 'categories' => $categories]);
     }
 
     /**

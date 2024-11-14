@@ -22,6 +22,6 @@ class AdminMiddleware
         }
 
         // Redirect or return an error response if the user is not an admin
-        return redirect('/home')->with('error', 'You do not have admin access.');
+        return redirect('/');
     }
 }

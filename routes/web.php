@@ -27,19 +27,19 @@ Route::group(['middleware' => 'guest'], function () {
         Route::post('/register', 'register');
     });
 
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/landing', 'landing')->name('landing');
-    });
+    // Route::controller(HomeController::class)->group(function () {
+    //     Route::get('/landing', 'landing')->name('landing');
+    // });
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    // Home
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/home', 'index')->name('home');
-    });
 
     // Admin
     Route::group(['middleware' => 'is_admin'], function () {
+        // Home
+        Route::controller(HomeController::class)->group(function () {
+            Route::get('/home', 'index')->name('home');
+        });
         Route::controller(AdminController::class)->group(function () {
             // User Management
             Route::get('/admin/users', 'listUsers')->name('admin.users.list');
@@ -51,6 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
     });
+
+    // Route::get('/home', function() {
+    //     return redirect('/');  // Redirect non-admins to the catalog page
+    // });
 
     // Logout
     Route::get('/logout', function (Request $request) {

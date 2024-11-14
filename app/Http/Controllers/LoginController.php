@@ -32,13 +32,17 @@ class LoginController extends Controller
             return ($user->is_active == 1);
         })) {
             $request->session()->regenerate();
-            return to_route('home');
+            if (Auth::user()->role == 'admin') {
+                return redirect('/home');  // Admins are redirected to /home
+            } else {
+                return redirect('/');  // Regular users are redirected to catalog page
+            }
         } else {
             if ($user->is_active == 0){
                 return back()->with('error', 'Login Gagal! Akun Tidak Aktif');
             }else{
                 return back()->with('error', 'Login Gagal! Password salah');
-            }            
+            }
         }
     }
 }

@@ -12,8 +12,8 @@ class HomeController extends Controller
         return view('home.index');
     }
 
-    public function landing(Request $request): View
-    {
-        return view('landing.index');
-    }
+    // public function landing(Request $request): View
+    // {
+    //     return view('landing.index');
+    // }
 }

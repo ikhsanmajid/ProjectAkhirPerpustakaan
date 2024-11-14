@@ -49,41 +49,6 @@
     </nav>
 
 
-    {{-- <nav class="navbar bg-primary sticky-top" data-bs-theme="dark">
-        <div class="container-fluid px-3 py-1 d-flex justify-content-between">
-
-            <div class="navbar-brand mb-0 h1 text-white">Perpustakaan</div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/riwayat">Riwayat</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav d-flex">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/login">Login</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                @if (Auth::check())
-                    <a href="/logout" class="text-white text-decoration-none">
-                        Logout
-                    </a>
-                @else
-                    <a href="/login" class="text-white text-decoration-none">
-                        Login
-                    </a>
-                @endif
-            </div>
-        </div>
-    </nav> --}}
-
-
-
     <div class="container-fluid">
         <div class="row w-100 h-100 my-3 mx-2 pe-3">
             @yield('content')

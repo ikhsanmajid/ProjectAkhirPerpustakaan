@@ -60,10 +60,10 @@
                                 <div class="card-body p-2">
                                     <h5 class="card-title" style="font-size: 1rem;">{{ $book->title }}</h5>
                                     <p class="card-text" style="font-size: 0.85rem;">
-                                        Author: {{ $book->author }} <br>
-                                        Category: {{ $book->category->name }} <br>
+                                        Pengarang: {{ $book->author }} <br>
+                                        Kategori: {{ $book->category->name }} <br>
                                         ISBN: {{ $book->isbn }} <br>
-                                        Published: {{ $book->publication_year }}
+                                        Tahun: {{ $book->publication_year }}
                                     </p>
                                     <a href="{{ route('catalog.show', $book->id) }}" class="btn btn-primary btn-sm">Detail
                                         Buku</a>

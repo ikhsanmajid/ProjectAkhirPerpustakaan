@@ -27,11 +27,11 @@
                                         <div class="col-7">
                                             <div class="row mb-3">
                                                 <div class="col-md-2">
-                                                    <label for="search" class="form-label">Cari nama atau email</label>
+                                                    <label for="search" class="form-label">Cari nama, email atau nomor identitas</label>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <input type="text" id="search" name="search" class="form-control"
-                                                        placeholder="Cari nama atau email" value="{{ request('search') }}">
+                                                        placeholder="Cari nama, email atau nomor identitas" value="{{ request('search') }}">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -92,6 +92,8 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">No Hp</th>
+                                        <th scope="col">Identitas</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Status Aktif</th>
                                         <th scope="col">Action</th>
@@ -103,8 +105,10 @@
                                             <th scope="row">
                                                 {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
                                             </th>
-                                            <td>{{ $user->nama }}</td>
+                                            <td>{{ $user->first_name." ".$user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>{{ $user->no_hp }}</td>
+                                            <td>{{ strtoupper($user->jenis_identitas)." ".$user->nomor_identitas }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>{{ $user->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
                                             <td>
@@ -168,6 +172,15 @@
                 text: '{{ session('success') }}',
             });
         @endif
+        
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+            });
+        @endif
+
 
         let deleteUserId;
 

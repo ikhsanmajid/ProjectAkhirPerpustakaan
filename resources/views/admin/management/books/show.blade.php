@@ -24,16 +24,47 @@
                             <p><strong>Published Year:</strong> {{ $book->publication_year }}</p>
                             <p><strong>Description:</strong> <br>{{ $book->description }}</p>
                         </p>
-                        <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                        <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-primary">Edit</a>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $book->id }}, '{{ $book->title }}')">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteModal" tabindex="-2" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus buku <span class="fw-bold" id="bookTitle"></span>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <form id="deleteForm" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-js')
+    <script>
+        let deleteBookId;
+
+        function confirmDelete(bookId, bookTitle) {
+            deleteBookId = bookId;
+            const deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = `/admin/books/${bookId}`;
+            document.getElementById('bookTitle').innerText = bookTitle;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+    </script>
 @endsection

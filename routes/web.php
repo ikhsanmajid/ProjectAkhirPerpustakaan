@@ -9,15 +9,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\CatalogController;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        // If user is authenticated, redirect to /home
-        return redirect()->route('home');
-    }
-    // If not authenticated, redirect to login
-    return redirect()->route('landing');
-});
+Route::get("/", [CatalogController::class,"index"]);
 
 Route::group(['middleware' => 'guest'], function () {
     // Login
@@ -62,6 +56,6 @@ Route::group(['middleware' => 'auth'], function () {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return to_route('login');
+        return redirect('/');
     });
 });

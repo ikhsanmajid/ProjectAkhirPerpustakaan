@@ -24,10 +24,11 @@
                         <!-- Borrow Button (conditionally displayed based on authentication) -->
                         @auth
                             @if (Auth::user()->role == 'user')  <!-- Assuming 'user' role is for book borrowers -->
-                                <form action="{{-- {{ route('borrow.book', $book->id) }} --}}" method="POST">
+                                {{-- <form action="{{ route('borrow.book', $book->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Pinjam Buku</button>
-                                </form>
+                                </form> --}}
+                                <button class="btn btn-success">Pinjam Buku</button>
                             @endif
                         @else
                             <a href="{{ route('login') }}" class="btn btn-warning">Silahkan Login Untuk Pinjam</a>

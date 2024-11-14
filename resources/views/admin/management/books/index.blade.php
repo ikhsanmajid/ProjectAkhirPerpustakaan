@@ -14,6 +14,51 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($books as $index => $book)
+                    <tr>
+                        <td>{{ $index + 1 }}</td> <!-- Ordinary serial number -->
+                        <td>
+                            <!-- Make the title clickable and redirect to the show page -->
+                            <a href="{{ route('admin.books.show', $book->id) }}">{{ $book->title }}</a>
+                        </td>
+                        <td>{{ $book->author }}</td>
+                        <td>{{ $book->publisher }}</td>
+                        <td>{{ $book->category->name }}</td>
+                        <td>
+                            @if($book->image)
+                                <img src="{{ asset('storage/' . $book->image) }}" alt="Book Image" width="50">
+                            @else
+                                No Image
+                            @endif
+                        </td>
+                        <td>
+                            <!-- Tombol Edit -->
+                            <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                            <!-- Tombol Delete -->
+                            <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{-- <table class="table table-striped">
+            <thead>
+                <tr>
                     <th>Title</th>
                     <th>Author</th>
                     <th>ISBN</th>
@@ -60,6 +105,6 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
     </div>
 @endsection

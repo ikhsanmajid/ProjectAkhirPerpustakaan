@@ -8,7 +8,7 @@
         <div class="row">
             <!-- Left Column: Image -->
             <div class="col-md-4 d-flex justify-content-center align-items-center">
-                <img class="img-fluid" src="{{ asset('storage/' . $book->image) }}" alt="{{ $book->title }}" style="width: 80%; height: auto; object-fit: cover;">
+                <img class="img-fluid" src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/book-null.png') }}" alt="{{ $book->title }}" style="width: 80%; height: auto; object-fit: cover;">
             </div>
 
             <!-- Right Column: Description -->

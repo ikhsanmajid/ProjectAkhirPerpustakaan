@@ -55,7 +55,7 @@
                     @forelse ($books as $book)
                         <div class="col-md-3 mb-4">
                             <div class="card">
-                                <img class="card-img-top" src="{{ asset('storage/' . $book->image) }}"
+                                <img class="card-img-top" src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/book-null.png') }}"
                                     alt="{{ $book->title }}" style="width: 100%; height: 300px; object-fit: cover;">
                                 <div class="card-body p-2">
                                     <h5 class="card-title" style="font-size: 1rem;">{{ $book->title }}</h5>

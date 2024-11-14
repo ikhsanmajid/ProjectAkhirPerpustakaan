@@ -30,7 +30,7 @@
                                         <div class="col-7">
                                             <div class="row mb-3">
                                                 <div class="col-md-2">
-                                                    <label for="search" class="form-label">Cari nama atau email</label>
+                                                    <label for="search" class="form-label"> Cari Buku</label>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <input type="text" id="search" name="search" class="form-control"

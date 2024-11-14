@@ -6,6 +6,9 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -58,7 +61,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $categories = Category::all();
+        return view('admin.management.books.edit', compact('book', 'categories'));
     }
 
     /**
@@ -66,7 +70,24 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        // Validasi otomatis menggunakan UpdateBookRequest
+        $validated = $request->validated();
+
+        // Proses gambar jika ada
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($book->image) {
+                Storage::disk('public')->delete($book->image);
+            }
+
+            $imagePath = $request->file('image')->store('books', 'public');
+            $validated['image'] = $imagePath;
+        }
+
+        // Update data buku
+        $book->update($validated);
+
+        return redirect()->route('admin.books.index')->with('success', 'Book updated successfully!');
     }
 
     /**
@@ -74,6 +95,16 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+
+        // Hapus gambar jika ada
+        if ($book->image) {
+            Storage::disk('public')->delete($book->image);
+        }
+
+        // Hapus buku
+        $book->delete();
+
+        Book::destroy($book->id);
+        return redirect()->route('admin.books.index')->with('success', 'Buku Berhasil Dihapus!');
     }
 }

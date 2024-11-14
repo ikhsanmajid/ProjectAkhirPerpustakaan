@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h1 class="my-4">Books List</h1>
+        <h1 class="my-4">List Buku</h1>
 
         <!-- Menampilkan pesan sukses atau error -->
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <a href="{{ route('admin.books.create') }}" class="btn btn-primary mb-3">Add New Book</a>
+        <a href="{{ route('admin.books.create') }}" class="btn btn-primary mb-3">Tambah Buku</a>
 
         <table class="table table-striped">
             <thead>
@@ -41,7 +41,7 @@
                         <td>{{ $book->description }}</td>
                         <td>
                             @if($book->image)
-                                <img src="{{ asset('img/books/' . $book->image) }}" alt="Book Image" width="50">
+                                <img src="{{ asset('storage/' . $book->image) }}" alt="Book Image" width="50">
                             @else
                                 No Image
                             @endif
@@ -54,7 +54,7 @@
                             <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
                             </form>
                         </td>
                     </tr>

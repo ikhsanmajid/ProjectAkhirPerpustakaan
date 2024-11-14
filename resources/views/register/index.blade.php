@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
     <div class="col-12 mt-5">
@@ -76,7 +76,7 @@
                                 Kesalahan:
                                 <ul>
                                     ${errors.map(item => `<li>${item}</li>`).join('')}
-                                </ul>                                                              
+                                </ul>
                         </div>
                     `)
                 }
@@ -104,7 +104,7 @@
                     message.html(`
                             <div class="alert alert-${type} alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                ${submit.message}                               
+                                ${submit.message}
                             </div>
                             `)
 
@@ -112,7 +112,7 @@
                     message.html(`
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            Backend Error!                                                          
+                            Backend Error!
                         </div>
                         `)
 

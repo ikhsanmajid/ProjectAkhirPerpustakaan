@@ -1,21 +1,18 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\CatalogController;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        // If user is authenticated, redirect to /home
-        return redirect()->route('home');
-    }
-    // If not authenticated, redirect to login
-    return redirect()->route('landing');
-});
+Route::get("/", [CatalogController::class,"index"])->name('index');
+Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::group(['middleware' => 'guest'], function () {
     // Login
@@ -30,36 +27,40 @@ Route::group(['middleware' => 'guest'], function () {
         Route::post('/register', 'register');
     });
 
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/landing', 'landing')->name('landing');
-    });
+    // Route::controller(HomeController::class)->group(function () {
+    //     Route::get('/landing', 'landing')->name('landing');
+    // });
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    // Home
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/home', 'index')->name('home');
-    });
 
     // Admin
     Route::group(['middleware' => 'is_admin'], function () {
+        // Home
+        Route::controller(HomeController::class)->group(function () {
+            Route::get('/home', 'index')->name('home');
+        });
         Route::controller(AdminController::class)->group(function () {
             // User Management
             Route::get('/admin/users', 'listUsers')->name('admin.users.list');
             Route::get('/admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
             Route::put('/admin/users/{id}', 'updateUser')->name('admin.users.update');
             Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.users.delete');
-
-            // Book Management
-
         })->name('admin.');
+        // Route resource untuk manajemen buku
+        Route::resource('admin/books', BookController::class)->names('admin.books');
+        Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
     });
+
+    // Route::get('/home', function() {
+    //     return redirect('/');  // Redirect non-admins to the catalog page
+    // });
 
     // Logout
     Route::get('/logout', function (Request $request) {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return to_route('login');
+        return redirect('/');
     });
 });

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
     <div class="h-100 w-100 m mt-5">

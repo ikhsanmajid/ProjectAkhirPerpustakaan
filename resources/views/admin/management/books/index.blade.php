@@ -60,11 +60,8 @@
                                                 <div class="col-md-10">
                                                     <select id="year" name="year" class="form-control">
                                                         <option value="">Semua Tahun</option>
-                                                        @foreach (range(2000, date('Y')) as $year)
-                                                            <option value="{{ $year }}"
-                                                                {{ request('year') == $year ? 'selected' : '' }}>
-                                                                {{ $year }}
-                                                            </option>
+                                                        @foreach ($years as $year)
+                                                            <option value="{{ $year }}">{{ $year }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

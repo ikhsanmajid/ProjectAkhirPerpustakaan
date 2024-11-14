@@ -39,6 +39,7 @@ class BookController extends Controller
         }
 
         // Filter by year
+        $years = Book::distinct()->orderBy('publication_year', 'desc')->pluck('publication_year');
         if ($request->filled('year')) {
             $query->where('publication_year', $request->year);
         }
@@ -46,7 +47,7 @@ class BookController extends Controller
         // Paginate results and keep filters in the query string
         $books = $query->paginate(10)->appends($request->query());
 
-        return view('admin.management.books.index', ['books' => $books, 'categories' => $categories]);
+        return view('admin.management.books.index', ['books' => $books, 'categories' => $categories, 'years' => $years]);
     }
 
     /**

@@ -61,7 +61,7 @@
                                 ISBN: {{ $book->isbn }} <br>
                                 Published: {{ $book->publication_year }}
                             </p>
-                            <a href="#" class="btn btn-primary btn-sm">Detail Buku</a>
+                            <a href="{{ route('catalog.show', $book->id) }}" class="btn btn-primary btn-sm">Detail Buku</a>
                         </div>
                     </div>
                 </div>

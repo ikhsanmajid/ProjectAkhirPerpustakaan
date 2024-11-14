@@ -19,8 +19,13 @@ class CatalogController extends Controller
         // Mengambil daftar tahun publikasi unik
         $years = Book::distinct()->orderBy('publication_year', 'desc')->pluck('publication_year');
 
-
         // Mengirim data buku, kategori, dan tahun ke view
         return view('index', compact('books', 'categories', 'years'));
+    }
+
+    public function show(Book $book)
+    {
+        // Fetch the book data along with its associated category
+        return view('show', compact('book'));
     }
 }

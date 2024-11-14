@@ -12,6 +12,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CatalogController;
 
 Route::get("/", [CatalogController::class,"index"]);
+Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::group(['middleware' => 'guest'], function () {
     // Login

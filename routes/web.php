@@ -40,13 +40,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::controller(HomeController::class)->group(function () {
             Route::get('/home', 'index')->name('home');
         });
+
         Route::controller(AdminController::class)->group(function () {
             // User Management
+            Route::get('/admin/users/create', 'createUser')->name('admin.users.create');
+            Route::post('/admin/users/create', 'storeUser')->name('admin.users.store');
             Route::get('/admin/users', 'listUsers')->name('admin.users.list');
             Route::get('/admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
             Route::put('/admin/users/{id}', 'updateUser')->name('admin.users.update');
             Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.users.delete');
         })->name('admin.');
+
         // Route resource untuk manajemen buku
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');

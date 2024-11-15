@@ -13,22 +13,64 @@
                             @csrf
                             @method('PUT')
 
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <div">
+                                        <label for="first_name" class="form-label">Nama Depan</label>
+                                        <input type="text" class="form-control" name="first_name"
+                                            value={{ $user->first_name }} id="first_name" required>
+                                </div>
+
+                                <div class="col-6">
+                                    <div">
+                                        <label for="last_name" class="form-label">Nama Belakang</label>
+                                        <input type="text" class="form-control" name="last_name"
+                                            value={{ $user->last_name }} id="last_name">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-3">
+                                    <div">
+                                        <label for="jenis_identitas" class="form-label">Jenis Identitas</label>
+                                        <select class="form-select" name="jenis_identitas" id="jenis_identitas"
+                                            value={{ $user->jenis_identitas }}>
+                                            <option value="ktp">KTP</option>
+                                            <option value="sim">SIM</option>
+                                            <option value="kartu_pelajar">Kartu Pelajar</option>
+                                            <option value="passport">Passport</option>
+                                        </select>
+                                </div>
+
+                                <div class="col-9">
+                                    <div">
+                                        <label for="nomor_identitas" class="form-label">Nomor Kartu Identitas</label>
+                                        <input type="text" class="form-control" id="nomor_identitas"
+                                            value={{ $user->nomor_identitas }} required>
+                                </div>
+                            </div>
+
+
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                    required value={{ $user->email }} required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="name" name="nama" value="{{ $user->nama }}" required>
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password">
                             </div>
 
                             <div class="mb-3">
-                                <label for="is_active" class="form-label">Status Aktif</label>
-                                <select id="is_active" name="is_active" class="form-control">
-                                    <option value="1" {{ $user->is_active == 1 ? 'selected' : '' }}>Aktif</option>
-                                    <option value="0" {{ $user->is_active == 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                                </select>
+                                <label for="no_hp" class="form-label">No. Hp</label>
+                                <input type="tel" class="form-control" id="no_hp" value={{ $user->no_hp }}
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <textarea class="form-control" id="alamat" name="alamat">{{ $user->alamat }}</textarea>
                             </div>
 
                             <div class="mb-3">
@@ -49,4 +91,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+            });
+        @endif
+    </script>
 @endsection

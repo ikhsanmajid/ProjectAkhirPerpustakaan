@@ -16,9 +16,14 @@ class RegistrationController extends Controller
 
     function register(Request $request)
     {
+        $firstName = $request->input('first_name');
+        $lastName = $request->input('last_name');
+        $jenisIdentitas = $request->input('jenis_identitas');
+        $noIdentitas = $request->input('nomor_identitas');
+        $noHp = $request->input('no_hp');
+        $alamat = $request->input('alamat');
         $email = $request->input('email');
         $password = $request->input('password');
-        $fullName = $request->input('name');
 
         $error = "";
 
@@ -27,7 +32,12 @@ class RegistrationController extends Controller
 
             $insertUser->email = $email;
             $insertUser->password = Hash::make($password);
-            $insertUser->nama = $fullName;
+            $insertUser->first_name = $firstName;
+            $insertUser->last_name = $lastName;
+            $insertUser->jenis_identitas = $jenisIdentitas;
+            $insertUser->nomor_identitas = $noIdentitas;
+            $insertUser->no_hp = $noHp;
+            $insertUser->alamat = $alamat;
             $insertUser->is_active = true;
             $insertUser->role = 'user';
 

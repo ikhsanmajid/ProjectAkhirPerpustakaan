@@ -99,7 +99,8 @@
                                 @endif
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Ubah Buku</button>
+                                <button type="submit" class="btn btn-primary me-2">Ubah Buku</button>
+                                <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Batal</a>
                             </div>
                         </form>
                     </div>

@@ -66,7 +66,8 @@
                                 <input type="file" class="form-control" name="image" id="image">
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Simpan Buku</button>
+                                <button type="submit" class="btn btn-primary me-2">Simpan Buku</button>
+                                <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Batal</a>
                             </div>
                         </form>
                     </div>

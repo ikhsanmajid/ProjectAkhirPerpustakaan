@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4 bg-white py-4 rounded-3">
         <h1 class=""> Detail - {{ $book->title }}</h1>
 
         <a href="{{ route('admin.books.index') }}" class="btn btn-secondary mb-3">Kembali ke Daftar Buku</a>

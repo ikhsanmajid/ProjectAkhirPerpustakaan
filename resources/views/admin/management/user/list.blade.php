@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-12 bg-white">
+    <div class="col-12 bg-white py-2 rounded-3">
 
         <div class="row p-3">
             <div class="col-12">
@@ -159,7 +159,7 @@
 
     </div>
 
-    
+
 @endsection
 
 @section('script-js')
@@ -172,7 +172,7 @@
                 text: '{{ session('success') }}',
             });
         @endif
-        
+
         @if(session('error'))
             Swal.fire({
                 icon: 'error',

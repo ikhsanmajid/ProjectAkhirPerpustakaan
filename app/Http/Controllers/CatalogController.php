@@ -38,7 +38,7 @@ class CatalogController extends Controller
         }
 
         // Paginate results and keep filters in the query string
-        $books = $query->paginate(10)->appends($request->query());
+        $books = $query->paginate(12)->appends($request->query());
 
         // Mengirim data buku, kategori, dan tahun ke view
         return view('index', ['books' => $books, 'categories' => $categories, 'years' => $years]);

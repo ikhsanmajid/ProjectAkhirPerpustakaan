@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -60,7 +61,18 @@ class AdminController extends Controller
     //ANCHOR - Update User
     public function updateUser(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+
+        if(isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+            // dd($data['password']);
+        }
+
+        if(isset($data['is_active'])) {
+            $data['is_active'] = $data['is_active'] == 'true' ? true : false;
+        }
+
+        $validator = Validator::make($data, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -73,22 +85,25 @@ class AdminController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
+        // dd([$request->all(), $validator->errors()]);
+
         if ($validator->fails()) {
             return redirect()->route('admin.users.edit', $id)
                              ->with('error', 'Terjadi kesalahan saat memperbarui user.')
                              ->withErrors($validator)
                              ->withInput();
+
         }
 
         try {
             $user = User::findOrFail($id);
-            $data = $request->all();
+            // $data = $request->all();
 
-            if (empty($data['password'])) {
-                unset($data['password']);
-            } else {
-                $data['password'] = bcrypt($data['password']);
-            }
+            // if (empty($data['password'])) {
+            //     unset($data['password']);
+            // } else {
+            //     $data['password'] = bcrypt($data['password']);
+            // }
 
             $user->update($data);
 

@@ -45,7 +45,7 @@
                                 <div class="col-9">
                                     <div">
                                         <label for="nomor_identitas" class="form-label">Nomor Kartu Identitas</label>
-                                        <input type="text" class="form-control" id="nomor_identitas"
+                                        <input type="text" class="form-control" id="nomor_identitas" name="nomor_identitas"
                                             value={{ $user->nomor_identitas }} required>
                                 </div>
                             </div>
@@ -53,24 +53,32 @@
 
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
                                     required value={{ $user->email }} required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <input type="password" class="form-control" name="password" id="password">
                             </div>
 
                             <div class="mb-3">
                                 <label for="no_hp" class="form-label">No. Hp</label>
-                                <input type="tel" class="form-control" id="no_hp" value={{ $user->no_hp }}
+                                <input type="tel" class="form-control" id="no_hp" name="no_hp" value={{ $user->no_hp }}
                                     required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
                                 <textarea class="form-control" id="alamat" name="alamat">{{ $user->alamat }}</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Is Active</label>
+                                <select id="role" name="is_active" class="form-control">
+                                    <option value="true" {{ $user->is_active == true ? 'selected' : '' }}>Aktif</option>
+                                    <option value="false" {{ $user->is_active == false ? 'selected' : '' }}>Tidak Aktif</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">

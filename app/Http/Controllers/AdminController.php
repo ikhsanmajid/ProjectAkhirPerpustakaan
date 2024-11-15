@@ -55,6 +55,7 @@ class AdminController extends Controller
     public function editUser($id): View
     {
         $user = User::findOrFail($id);
+        // dd($user);
         return view('admin.management.user.edit', ['user' => $user]);
     }
 
@@ -74,7 +75,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($data, [
             'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'nullable|string|min:8',
             'no_hp' => 'required|string|max:15',
@@ -99,16 +100,15 @@ class AdminController extends Controller
             $user = User::findOrFail($id);
             // $data = $request->all();
 
-            // if (empty($data['password'])) {
-            //     unset($data['password']);
-            // } else {
-            //     $data['password'] = bcrypt($data['password']);
-            // }
+            if (empty($data['password'])) {
+                unset($data['password']);
+            }
 
             $user->update($data);
 
             return redirect()->route('admin.users.list')->with('success', 'User berhasil diperbarui.');
         } catch (\Exception $e) {
+            // dd($e);
             return redirect()->route('admin.users.edit', $id)
                              ->with('error', 'Terjadi kesalahan saat memperbarui user.')
                              ->withInput();

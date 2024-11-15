@@ -25,7 +25,7 @@
                                     <div">
                                         <label for="last_name" class="form-label">Nama Belakang</label>
                                         <input type="text" class="form-control" name="last_name"
-                                            value={{ $user->last_name }} id="last_name">
+                                            value="{{ $user->last_name == null ? "" : $user->last_name }}" id="last_name">
                                 </div>
                             </div>
 

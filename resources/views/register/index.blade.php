@@ -164,6 +164,7 @@
 
                     if (submit.type == "success") {
                         type = "success"
+                        link = '<a href="/login" class="alert-link">Log in</a>';
                     } else {
                         type = "danger"
                     }
@@ -171,7 +172,7 @@
                     message.html(`
                             <div class="alert alert-${type} alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                ${submit.message}
+                                ${submit.message} ${link}
                             </div>
                             `)
 

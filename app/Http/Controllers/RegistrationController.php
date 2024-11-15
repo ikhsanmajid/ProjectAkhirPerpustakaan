@@ -42,7 +42,7 @@ class RegistrationController extends Controller
             $insertUser->role = 'user';
 
             $insertUser->save();
-            
+
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
@@ -63,7 +63,7 @@ class RegistrationController extends Controller
         } else {
             $response = [
                 'type' => 'success',
-                'message' => 'Registrasi Berhasil!'
+                'message' => 'Registrasi Berhasil! Silahkan '
             ];
         }
 

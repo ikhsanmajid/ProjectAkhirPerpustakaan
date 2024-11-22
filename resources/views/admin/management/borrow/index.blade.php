@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="col-12 bg-white py-2 rounded-3">
-    <div class="container mt-5">
+    <div class="container my-3">
         <h2 class="text-center mb-4">Manajemen Peminjaman Buku</h2>
 
         <!-- Book Information Section -->
@@ -214,21 +214,35 @@
 
             if (query.length > 2) {
                 fetch(`/admin/users/search?query=${query}`)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(users => {
                         const resultsTable = document.getElementById('userResults');
                         resultsTable.innerHTML = ''; // Clear previous results
 
-                        users.forEach(user => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${user.id}</td>
-                                <td>${user.first_name} ${user.last_name}</td>
-                                <td>${user.email}</td>
-                                <td><button class="btn btn-primary btn-sm" onclick='selectUser(${JSON.stringify(user)})'>Pilih</button></td>
-                            `;
-                            resultsTable.appendChild(row);
-                        });
+                        if (users.length === 0) {
+                            resultsTable.innerHTML = '<tr><td colspan="4">No users found</td></tr>';
+                        } else {
+                            users.forEach(user => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${user.id}</td>
+                                    <td>${user.first_name} ${user.last_name}</td>
+                                    <td>${user.email}</td>
+                                    <td><button class="btn btn-primary btn-sm" onclick='selectUser(${JSON.stringify(user)})'>Pilih</button></td>
+                                `;
+                                resultsTable.appendChild(row);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching users:', error.message);
+                        const resultsTable = document.getElementById('userResults');
+                        resultsTable.innerHTML = '<tr><td colspan="4">Error fetching books. Please try again later.</td></tr>';
                     });
             }
         });

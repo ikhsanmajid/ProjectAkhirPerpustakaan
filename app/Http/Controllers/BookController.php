@@ -136,4 +136,14 @@ class BookController extends Controller
         Book::destroy($book->id);
         return redirect()->route('admin.books.index')->with('success', 'Buku Berhasil Dihapus!');
     }
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $books = Book::where('title', 'LIKE', "%$query%")
+                    ->orWhere('id', 'LIKE', "%$query%")
+                    ->take(10) // Limit the results for better performance
+                    ->get();
+
+        return response()->json($books);
+    }
 }

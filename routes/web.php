@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\BorrowController;
 
 Route::get("/", [CatalogController::class,"index"])->name('index');
 Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
@@ -49,11 +50,19 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
             Route::put('/admin/users/{id}', 'updateUser')->name('admin.users.update');
             Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.users.delete');
+            // Search Users
+            Route::get('admin/users/search', 'search')->name('admin.users.search');
         })->name('admin.');
 
+        // Search Books
+        Route::get('admin/books/search', [BookController::class, 'search'])->name('admin.books.search');
         // Route resource untuk manajemen buku
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
+        Route::resource('admin/borrow', BorrowController::class)->names('admin.borrow');
+
+
+
     });
 
     // Route::get('/home', function() {

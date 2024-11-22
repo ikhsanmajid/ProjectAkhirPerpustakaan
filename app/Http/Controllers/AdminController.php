@@ -124,5 +124,17 @@ class AdminController extends Controller
         return redirect()->route('admin.users.list')->with('success', 'User berhasil dihapus.');
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $users = User::where('first_name', 'LIKE', "%$query%")
+            ->orWhere('last_name', 'LIKE', "%$query%")
+            ->orWhere('email', 'LIKE', "%$query%")
+            ->orWhere('id', 'LIKE', "%$query%")
+            ->limit(10)
+            ->get();
+
+        return response()->json($users);
+    }
     //!SECTION - User Management
 }

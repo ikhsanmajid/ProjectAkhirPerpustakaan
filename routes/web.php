@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\ReturnController;
 
 Route::get("/", [CatalogController::class,"index"])->name('index');
 Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
@@ -60,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
         Route::resource('admin/borrow', BorrowController::class)->names('admin.borrow');
+        Route::resource('admin/return', ReturnController::class)->names('admin.return');
+
 
 
 

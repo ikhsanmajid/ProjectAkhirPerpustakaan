@@ -41,12 +41,12 @@ class CatalogController extends Controller
         $books = $query->paginate(12)->appends($request->query());
 
         // Mengirim data buku, kategori, dan tahun ke view
-        return view('index', ['books' => $books, 'categories' => $categories, 'years' => $years]);
+        return view('book.index', ['books' => $books, 'categories' => $categories, 'years' => $years]);
     }
 
     public function show(Book $book)
     {
         // Fetch the book data along with its associated category
-        return view('show', compact('book'));
+        return view('book.show', compact('book'));
     }
 }

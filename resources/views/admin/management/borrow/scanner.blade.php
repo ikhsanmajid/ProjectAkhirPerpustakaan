@@ -30,6 +30,7 @@
             });
 
         function onScanSuccess(decodedText, decodedResult) {
+            html5QrcodeScanner.pause();
             window.open(
                 decodedText,
                 '_blank'

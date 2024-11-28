@@ -8,24 +8,30 @@
         <div class="row">
             <!-- Left Column: Image -->
             <div class="col-md-4 d-flex justify-content-center align-items-center">
-                <img class="img-fluid" src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/book-null.png') }}" alt="{{ $book->title }}" style="width: 80%; height: auto; object-fit: cover;">
+                <img class="img-fluid"
+                    src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/book-null.png') }}"
+                    alt="{{ $book->title }}" style="width: 80%; height: auto; object-fit: cover;">
             </div>
 
             <!-- Right Column: Description -->
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title h1">{{ $book->title }}</h5>
+                        <div>
+                            <h5 class="card-title h1">{{ $book->title }}</h5>
+                            <span class="badge rounded-pill text-bg-primary">Primary</span>
+                        </div>
                         <p class="card-text">
-                            <p><strong>Author:</strong> {{ $book->author }}</p>
-                            <p><strong>Category:</strong> {{ $book->category->name }}</p>
-                            <p><strong>ISBN:</strong> {{ $book->isbn }}</p>
-                            <p><strong>Publisher:</strong> {{ $book->publisher }}</p>
-                            <p><strong>Published Year:</strong> {{ $book->publication_year }}</p>
-                            <p><strong>Description:</strong> <br>{{ $book->description }}</p>
+                        <p><strong>Author:</strong> {{ $book->author }}</p>
+                        <p><strong>Category:</strong> {{ $book->category->name }}</p>
+                        <p><strong>ISBN:</strong> {{ $book->isbn }}</p>
+                        <p><strong>Publisher:</strong> {{ $book->publisher }}</p>
+                        <p><strong>Published Year:</strong> {{ $book->publication_year }}</p>
+                        <p><strong>Description:</strong> <br>{{ $book->description }}</p>
                         </p>
                         <a href="{{ route('admin.books.edit', $book->id) }}" class="btn btn-primary">Edit</a>
-                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $book->id }}, '{{ $book->title }}')">Delete</button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="confirmDelete({{ $book->id }}, '{{ $book->title }}')">Delete</button>
                     </div>
                 </div>
             </div>

@@ -56,12 +56,15 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Search Books
         Route::get('admin/books/search', [BookController::class, 'search'])->name('admin.books.search');
+        
         // Route resource untuk manajemen buku
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
+
+        Route::get('admin/borrow/scanner', [BorrowController::class, 'scannerView'])->name('admin.borrow.scanner');
         Route::resource('admin/borrow', BorrowController::class)->names('admin.borrow');
 
-
+        
 
     });
 

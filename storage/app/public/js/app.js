@@ -1,0 +1,1 @@
+import "../../../../node_modules/html5-qrcode/html5-qrcode-scanner"

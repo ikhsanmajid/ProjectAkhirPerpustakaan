@@ -62,4 +62,9 @@ class BorrowController extends Controller
     {
         //
     }
+
+    public function scannerView()
+    {
+        return view("admin.management.borrow.scanner");
+    }
 }

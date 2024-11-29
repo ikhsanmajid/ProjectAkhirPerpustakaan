@@ -42,9 +42,9 @@ class BorrowController extends Controller
      * Store a newly created resource in storage.
      */
     public function storeAdmin(Request $request)
-    {   
+    {
         //
-       
+
     }
 
     /**
@@ -91,7 +91,7 @@ class BorrowController extends Controller
 
     // User
     public function storeUser(Request $request)
-    {   
+    {
         //
         $validated = $request->validate([
             "id_user" => "required",
@@ -100,9 +100,11 @@ class BorrowController extends Controller
             "rencana_tanggal_kembali" => "required"
         ]);
 
-        $check_user_menunggu_pinjam = Transaction::where("user_id", $validated["id_user"])
-            ->where("status", "menunggu")
-            ->orWhere("status", "dipinjam")
+        $check_user_menunggu_pinjam = Transaction::where('user_id', $validated['id_user'])
+            ->where(function ($query) {
+                $query->where('status', 'menunggu')
+                    ->orWhere('status', 'dipinjam');
+            })
             ->first();
 
         if ($check_user_menunggu_pinjam !== null) {

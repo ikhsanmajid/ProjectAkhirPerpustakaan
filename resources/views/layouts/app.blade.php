@@ -22,7 +22,7 @@
     <nav class="navbar bg-primary sticky-top" data-bs-theme="dark">
         <div class="container-fluid px-3 py-1 d-flex justify-content-between">
 
-            @if (Auth::check())
+            @if (Auth::check() && Auth::user()->isAdmin())
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon "></span>
@@ -42,7 +42,7 @@
                 @endif
             </div>
         </div>
-        @if (Auth::check())
+        @if (Auth::check() && Auth::user()->isAdmin())
             @include('components.sidebar')
         @endif
     </nav>

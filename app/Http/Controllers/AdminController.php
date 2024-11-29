@@ -136,5 +136,11 @@ class AdminController extends Controller
 
         return response()->json($users);
     }
+    
     //!SECTION - User Management
+
+    public function scannerView()
+    {
+        return view("admin.management.borrow.scanner");
+    }
 }

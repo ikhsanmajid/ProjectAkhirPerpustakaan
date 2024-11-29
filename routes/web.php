@@ -11,6 +11,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\UserTransactionController;
 
 Route::get("/", [CatalogController::class,"index"])->name('index');
 Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
@@ -44,26 +46,41 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::controller(AdminController::class)->group(function () {
             // User Management
-            Route::get('/admin/users/create', 'createUser')->name('admin.users.create');
-            Route::post('/admin/users/create', 'storeUser')->name('admin.users.store');
-            Route::get('/admin/users', 'listUsers')->name('admin.users.list');
-            Route::get('/admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
-            Route::put('/admin/users/{id}', 'updateUser')->name('admin.users.update');
-            Route::delete('/admin/users/{id}', 'deleteUser')->name('admin.users.delete');
+            Route::get('admin/users/create', 'createUser')->name('admin.users.create');
+            Route::post('admin/users/create', 'storeUser')->name('admin.users.store');
+            Route::get('admin/users', 'listUsers')->name('admin.users.list');
+            Route::get('admin/users/{id}/edit', 'editUser')->name('admin.users.edit');
+            Route::put('admin/users/{id}', 'updateUser')->name('admin.users.update');
+            Route::delete('admin/users/{id}', 'deleteUser')->name('admin.users.delete');
             // Search Users
             Route::get('admin/users/search', 'search')->name('admin.users.search');
-        })->name('admin.');
+
+            // QR Code Scanner
+            Route::get('admin/borrow/scanner',  'scannerView')->name('admin.borrow.scanner');
+            Route::get('admin/borrow/{id}',  'confirmPeminjaman')->name('admin.borrow.confirm');
+        })->name('admin.controller');
 
         // Search Books
         Route::get('admin/books/search', [BookController::class, 'search'])->name('admin.books.search');
+        
         // Route resource untuk manajemen buku
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
-        Route::resource('admin/borrow', BorrowController::class)->names('admin.borrow');
 
-
+        Route::controller(BorrowController::class)->group(function () {
+            // Borrow
+            Route::get('admin/borrow', 'index')->name('admin.borrow.index');
+            Route::get('admin/borrow/{id}', 'show')->name('admin.borrow.show');
+            Route::put('admin/borrow/{id}', 'update')->name('admin.borrow.update');
+        });       
 
     });
+
+    // Catalog
+    Route::post('/borrow', [BorrowController::class, 'storeUser'])->name('user.borrow.store');
+
+    // History
+    Route::get('/riwayat', [UserTransactionController::class, 'index'])->name('user.history');
 
     // Route::get('/home', function() {
     //     return redirect('/');  // Redirect non-admins to the catalog page

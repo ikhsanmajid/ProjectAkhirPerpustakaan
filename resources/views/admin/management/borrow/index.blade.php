@@ -249,7 +249,7 @@
                                 const row = document.createElement('tr');
                                 row.innerHTML = `
                                     <td>${user.id}</td>
-                                    <td>${user.first_name} ${user.last_name}</td>
+                                    <td>${user.first_name} ${user.last_name ?? ""}</td>
                                     <td>${user.email}</td>
                                     <td><button class="btn btn-primary btn-sm" onclick='selectUser(${JSON.stringify(user)})'>Pilih</button></td>
                                 `;
@@ -269,7 +269,7 @@
         function selectUser(user) {
             console.log(user);
             document.getElementById('member_id').value = user.id;
-            document.getElementById('full_name').value = `${user.first_name} ${user.last_name}`;
+            document.getElementById('full_name').value = `${user.first_name} ${user.last_name ?? ""}`;
             document.getElementById('phone').value = user.no_hp;
             document.getElementById('email').value = user.email;
             document.getElementById('identity_type').value = user.jenis_identitas;

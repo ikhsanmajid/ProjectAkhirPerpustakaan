@@ -48,14 +48,6 @@
                                                         onclick="showQR({{ $item->id }})">
                                                         Lihat QR Code
                                                     </button>
-                                                @elseif($item->status == "dipinjam")
-                                                    <button class="btn btn-sm btn-warning">
-                                                        Kembalikan Buku
-                                                    </button>
-                                                @else
-                                                    <button class="btn btn-sm btn-secondary">
-                                                        Detail
-                                                    </button>
                                                 @endif
                                             </td>
                                         </tr>

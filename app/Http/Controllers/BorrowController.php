@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Book;
 use App\Models\Borrow;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BorrowController extends Controller
 {
-     //Admin
+    //Admin
     public function index()
     {
         return view("admin.management.borrow.index");
@@ -27,7 +29,7 @@ class BorrowController extends Controller
             ->first();
 
         //dd($transaction);
-        return view("admin.management.borrow.updateScanner", ["data"=> $transaction]);
+        return view("admin.management.borrow.updateScanner", ["data" => $transaction]);
     }
 
     /**
@@ -77,7 +79,6 @@ class BorrowController extends Controller
                 "status" => "failed"
             ]);
         }
-
     }
 
     /**
@@ -123,6 +124,14 @@ class BorrowController extends Controller
 
         if ($transaction) {
             $available_book = Book::find($validated["id_buku"]);
+
+            if ($available_book->available_quantity <= 0) {
+                return response()->json([
+                    "message" => "Stok Buku 0",
+                    "status" => "failed",
+                ]);
+            }
+
             $available_book->available_quantity = $available_book->available_quantity - 1;
             $available_book->save();
 
@@ -134,6 +143,78 @@ class BorrowController extends Controller
         } else {
             return response()->json([
                 "message" => "Buku gagal dipinjam",
+                "status" => "failed"
+            ]);
+        }
+    }
+
+    public function storeUserFromAdmin(Request $request)
+    {
+        //
+        $validated = $request->validate([
+            "id_user" => "required",
+            "id_buku" => "required",
+            "tanggal_pinjam" => "required",
+            "rencana_tanggal_kembali" => "required"
+        ]);
+
+        $check_user_menunggu_pinjam = Transaction::where('user_id', $validated['id_user'])
+            ->where(function ($query) {
+                $query->where('status', 'menunggu')
+                    ->orWhere('status', 'dipinjam');
+            })
+            ->first();
+
+        if ($check_user_menunggu_pinjam !== null) {
+            return response()->json([
+                "message" => "User Maksimal meminjam 1 buku",
+                "status" => "failed"
+            ]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $transaction = Transaction::create([
+                "user_id" => $validated["id_user"],
+                "book_id" => $validated["id_buku"],
+                "status" => "dipinjam",
+                "rencana_ambil" => $validated["tanggal_pinjam"],
+                "tanggal_ambil" => $validated["tanggal_pinjam"],
+                "rencana_kembali" => $validated["rencana_tanggal_kembali"]
+            ]);
+
+            if ($transaction) {
+                $available_book = Book::findOrFail($validated["id_buku"]);
+
+                if ($available_book->available_quantity <= 0) {
+                    throw new Exception("Stok Buku 0");
+                }
+
+                $available_book->available_quantity = $available_book->available_quantity - 1;
+                $available_book->save();
+
+                DB::commit();
+
+                return response()->json([
+                    "message" => "Buku berhasil dipinjam",
+                    "status" => "success",
+                    "data" => $transaction
+                ]);
+                
+            } else {
+                throw new Exception("Buku Gagal Dipinjam");
+            }
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            return response()->json([
+                "message" => "Buku Tidak Ditemukan",
+                "status" => "failed"
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                "message" => $e->getMessage(),
                 "status" => "failed"
             ]);
         }

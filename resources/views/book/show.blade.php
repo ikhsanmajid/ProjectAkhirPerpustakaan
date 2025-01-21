@@ -38,7 +38,7 @@
                                     <button type="submit" class="btn btn-success">Pinjam Buku</button>
                                 </form> --}}
                                 <button class="btn btn-success" {{ $book->available_quantity == 0 ? 'disabled' : '' }}
-                                    {{ $book->available_quantity > 0 ? 'onClick=coba(' . $book->id . ')' : '' }}>Pinjam
+                                    {{ $book->available_quantity > 0 ? 'onClick=showModalPinjam(' . $book->id . ')' : '' }}>Pinjam
                                     Buku</button>
                             @endif
                         @else
@@ -134,7 +134,7 @@
 
         const modalPinjam = new bootstrap.Modal(document.getElementById('modalPinjam'));
 
-        function coba(idBuku) {
+        function showModalPinjam(idBuku) {
             modalPinjam.show();
         }
 
@@ -158,7 +158,7 @@
                     })
                 }).then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    //console.log(data);
                     if (data.status == 'success') {
                         Swal.fire({
                             title: "Sukses!",

@@ -19,9 +19,9 @@ class AdminController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('first_name', 'like', '%' . $request->search . '%')
-                  ->orWhere('last_name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%')
-                  ->orWhere('nomor_identitas', 'like', '%' . $request->search . '%');
+                    ->orWhere('last_name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%')
+                    ->orWhere('nomor_identitas', 'like', '%' . $request->search . '%');
             });
         }
 
@@ -48,7 +48,7 @@ class AdminController extends Controller
     public function storeUser(Request $request, User $user): View
     {
         $user->create($request->all());
-        return view('', ['user'=> $user]);
+        return view('', ['user' => $user]);
     }
 
     //ANCHOR - Edit User
@@ -64,12 +64,12 @@ class AdminController extends Controller
     {
         $data = $request->all();
 
-        if(isset($data['password'])) {
+        if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
             // dd($data['password']);
         }
 
-        if(isset($data['is_active'])) {
+        if (isset($data['is_active'])) {
             $data['is_active'] = $data['is_active'] == 'true' ? true : false;
         }
 
@@ -90,10 +90,9 @@ class AdminController extends Controller
 
         if ($validator->fails()) {
             return redirect()->route('admin.users.edit', $id)
-                             ->with('error', 'Terjadi kesalahan saat memperbarui user.')
-                             ->withErrors($validator)
-                             ->withInput();
-
+                ->with('error', 'Terjadi kesalahan saat memperbarui user.')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         try {
@@ -110,8 +109,8 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             // dd($e);
             return redirect()->route('admin.users.edit', $id)
-                             ->with('error', 'Terjadi kesalahan saat memperbarui user.')
-                             ->withInput();
+                ->with('error', 'Terjadi kesalahan saat memperbarui user.')
+                ->withInput();
         }
     }
 
@@ -127,16 +126,19 @@ class AdminController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $users = User::where('first_name', 'LIKE', "%$query%")
-            ->orWhere('last_name', 'LIKE', "%$query%")
-            ->orWhere('email', 'LIKE', "%$query%")
-            ->orWhere('id', 'LIKE', "%$query%")
+        $users = User::where(function ($subquery) use ($query) {
+            $subquery->where('first_name', 'LIKE', "%$query%")
+                ->orWhere('last_name', 'LIKE', "%$query%")
+                ->orWhere('email', 'LIKE', "%$query%")
+                ->orWhere('id', 'LIKE', "%$query%");
+        })->where('role', 'user')
             ->limit(10)
             ->get();
 
+
         return response()->json($users);
     }
-    
+
     //!SECTION - User Management
 
     public function scannerView()

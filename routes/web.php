@@ -14,7 +14,7 @@ use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\UserTransactionController;
 
-Route::get("/", [CatalogController::class,"index"])->name('index');
+Route::get("/", [CatalogController::class, "index"])->name('index');
 Route::get('/books/{book}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::group(['middleware' => 'guest'], function () {
@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Search Books
         Route::get('admin/books/search', [BookController::class, 'search'])->name('admin.books.search');
-        
+
         // Route resource untuk manajemen buku
         Route::resource('admin/books', BookController::class)->names('admin.books');
         Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
@@ -72,8 +72,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('admin/borrow', 'index')->name('admin.borrow.index');
             Route::get('admin/borrow/{id}', 'show')->name('admin.borrow.show');
             Route::put('admin/borrow/{id}', 'update')->name('admin.borrow.update');
-        });       
+            Route::post('admin/borrow', 'storeUserFromAdmin')->name('admin.borrow.storeUserFromAdmin');
+        });
 
+        Route::controller(ReturnController::class)->group(function () {
+            Route::get('admin/return', 'index')->name('admin.return.index');
+            Route::put('admin/return/{id}', 'updateReturn')->name('admin.return.update');
+        });
     });
 
     // Catalog

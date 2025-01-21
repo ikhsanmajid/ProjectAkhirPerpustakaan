@@ -19,13 +19,22 @@
                     </a>
                 </div>
 
-                <div class="collapse multi-collapse list-group-flush show"
-                    id="menuAdmin">
-                    <a href="/admin/users" class="text-decoration-none list-group-item {{ Route::is('admin.users.list') ? 'active' : '' }}" role="button">Manajemen User</a>
-                    <a href="/admin/books" class="text-decoration-none list-group-item {{ Route::is('admin.books.index') ? 'active' : '' }}" role="button">Manajemen Buku</a>
-                    <a href="/admin/categories" class="text-decoration-none list-group-item {{ Route::is('admin.categories.index') ? 'active' : '' }}" role="button">Manajemen Kategori</a>
-                    <a href="/admin/borrow" class="text-decoration-none list-group-item {{ Route::is('admin.borrow.index') ? 'active' : '' }}" role="button">Manajemen Peminjaman</a>
-                    <a href="/admin/return" class="text-decoration-none list-group-item {{ Route::is('admin.return.index') ? 'active' : '' }}" role="button">Manajemen Pengembalian</a>
+                <div class="collapse multi-collapse list-group-flush show" id="menuAdmin">
+                    <a href="/admin/users"
+                        class="text-decoration-none list-group-item {{ Route::is('admin.users.list') ? 'active' : '' }}"
+                        role="button">Manajemen User</a>
+                    <a href="/admin/books"
+                        class="text-decoration-none list-group-item {{ Route::is('admin.books.index') ? 'active' : '' }}"
+                        role="button">Manajemen Buku</a>
+                    <a href="/admin/categories"
+                        class="text-decoration-none list-group-item {{ Route::is('admin.categories.index') ? 'active' : '' }}"
+                        role="button">Manajemen Kategori</a>
+                    <a href="/admin/borrow"
+                        class="text-decoration-none list-group-item {{ Route::is('admin.borrow.index') ? 'active' : '' }}"
+                        role="button">Manajemen Peminjaman</a>
+                    <a href="/admin/return"
+                        class="text-decoration-none list-group-item {{ Route::is('admin.return.index') ? 'active' : '' }}"
+                        role="button">Manajemen Pengembalian</a>
                 </div>
             </div>
         </div>

@@ -47,6 +47,11 @@ class ReturnController extends Controller
                 "data" => $result
             ]);
         } else {
+            $validated = $request->validate([
+                "start_date" => "nullable",
+                "end_date" => "nullable"
+            ]);
+
             $querySql = Transaction::join('books', 'transactions.book_id', '=', 'books.id')
                 ->join('users', 'transactions.user_id', '=', 'users.id')
                 ->select('transactions.*', 'users.first_name', 'users.last_name', 'books.title', 'books.publisher', 'books.author', 'books.publication_year', 'books.isbn', 'users.email', 'users.no_hp', 'users.jenis_identitas', 'users.nomor_identitas');
@@ -55,9 +60,14 @@ class ReturnController extends Controller
 
             $querySql->orderBy('tanggal_ambil', 'desc');
 
+            if (isset($validated["start_date"])) {
+                $querySql->whereBetween('tanggal_ambil', [DateTime::createFromFormat('d-m-Y', $validated['start_date'])->format('Y-m-d'), DateTime::createFromFormat('d-m-Y', $validated['end_date'])->format('Y-m-d')]);
+            }
+
             $result = $querySql->paginate(10)->appends($request->query());
             // Mengarahkan ke folder return dan file index.blade.php
             return view('admin.management.return.index', [
+                "query" => $validated,
                 "data" => $result
             ]);
         }

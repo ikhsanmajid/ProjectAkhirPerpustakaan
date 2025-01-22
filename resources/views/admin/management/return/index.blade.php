@@ -109,9 +109,9 @@
                                             </th>
                                             <td>{{ $item->first_name . " " . $item->last_name ?? "" }}</td>
                                             <td>{{ $item->title }}</td>
-                                            <td>{{ $item->tanggal_ambil ?? '-' }}</td>
-                                            <td>{{ $item->rencana_kembali ?? '-' }}</td>
-                                            <td>{{ $item->tanggal_kembali ?? '-' }}</td>
+                                            <td>{{ $item->tanggal_ambil ? \Carbon\Carbon::parse($item->tanggal_ambil)->format('d-m-Y') : '-' }}</td>
+                                            <td>{{ $item->rencana_kembali ? \Carbon\Carbon::parse($item->rencana_kembali)->format('d-m-Y') : '-' }}</td>
+                                            <td>{{ $item->tanggal_kembali ? \Carbon\Carbon::parse($item->tanggal_kembali)->format('d-m-Y') : '-' }}</td>
                                             <td>{{ $item->status ?? '-' }}</td>
                                             <td>
                                                 @if($item->status == "dipinjam")
@@ -408,7 +408,7 @@
 
             $('#returnDate').prop('disabled', false);
             $('#returnDate').datepicker('destroy');
-            $('#returnDate').val('');
+            $('#returnDate').val(`{{$query['end_date'] ?? ''}}`);
             const splittedDate = pickupValue.split("-")
             $('#returnDate').datepicker({
                 format: 'dd-mm-yyyy',

@@ -53,8 +53,6 @@ class ReturnController extends Controller
 
             //dd($validated);
 
-            $querySql->where('status', 'dipinjam');
-
             $querySql->orderBy('tanggal_ambil', 'desc');
 
             $result = $querySql->paginate(10)->appends($request->query());

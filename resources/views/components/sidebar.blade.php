@@ -34,7 +34,7 @@
                         role="button">Manajemen Peminjaman</a>
                     <a href="/admin/return"
                         class="text-decoration-none list-group-item {{ Route::is('admin.return.index') ? 'active' : '' }}"
-                        role="button">Manajemen Pengembalian</a>
+                        role="button">Riwayat Peminjaman</a>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                             aria-controls="panelsStayOpen-collapseOne">
-                            Filter Pengembalian Buku
+                            Filter Riwayat Peminjaman Buku
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -83,7 +83,7 @@
 
             <div class="card">
                 <div class="card-header fw-bold">
-                    Daftar Peminjaman
+                    Daftar Riwayat Peminjaman
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -113,18 +113,20 @@
                                             <td>{{ $item->rencana_kembali ? \Carbon\Carbon::parse($item->rencana_kembali)->format('d-m-Y') : '-' }}</td>
                                             <td>{{ $item->tanggal_kembali ? \Carbon\Carbon::parse($item->tanggal_kembali)->format('d-m-Y') : '-' }}</td>
                                             <td>{{ $item->status ?? '-' }}</td>
-                                            <td>
-                                                @if($item->status == "dipinjam")
-                                                    <button class="btn btn-sm btn-warning"
-                                                        onclick="showPengembalianModal({{$item}})">
-                                                        Kembalikan Buku
-                                                    </button>
-                                                @else
-                                                    <button class="btn btn-sm btn-secondary"
-                                                        onclick="showPengembalianModal({{$item}})">
-                                                        Detail
-                                                    </button>
-                                                @endif
+                                            <td class="text-center">
+                                                <div class="d-flek justify-content-center">
+                                                    @if($item->status == "dipinjam")
+                                                        <button class="btn btn-sm btn-warning w-auto"
+                                                            onclick="showPengembalianModal({{$item}})">
+                                                            Kembalikan Buku
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-sm btn-secondary"
+                                                            onclick="showPengembalianModal({{$item}})">
+                                                            Detail
+                                                        </button>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

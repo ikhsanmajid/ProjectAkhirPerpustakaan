@@ -5,7 +5,7 @@
 
     <div class="row p-3">
         <div class="col-12">
-            <h2>Manajemen Pengembalian</h2>
+            <h2>Riwayat Peminjaman Buku</h2>
         </div>
     </div>
 
